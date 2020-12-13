@@ -1,4 +1,4 @@
-use util::{read_arg_file};
+use util::read_arg_file;
 
 fn main() {
     if let Ok(lines) = read_arg_file() {

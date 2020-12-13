@@ -10,7 +10,6 @@ fn valid(line: &str) -> bool {
             if let Some(ccolon) = words.next() {
                 if let Some(c) = &ccolon[0..&ccolon.len() - 1].chars().next() {
                     if let Some(pass) = words.next() {
-
                         let lo_c = pass.chars().nth(lo - 1).unwrap();
                         let hi_c = pass.chars().nth(hi - 1).unwrap();
 

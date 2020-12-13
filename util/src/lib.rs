@@ -8,7 +8,7 @@ pub fn file_arg() -> Option<String> {
     let mut buf = String::new();
     if let Some(arg) = args.last() {
         buf.push_str(arg);
-        return Some(buf)
+        return Some(buf);
     }
     None
 }
@@ -24,6 +24,6 @@ where
 pub fn read_arg_file() -> io::Result<io::Lines<io::BufReader<File>>> {
     match file_arg() {
         Some(file) => read_lines(file),
-        None => Err(Error::new(ErrorKind::Other, "No file"))
+        None => Err(Error::new(ErrorKind::Other, "No file")),
     }
 }

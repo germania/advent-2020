@@ -10,9 +10,9 @@ fn valid(line: &str) -> bool {
             if let Some(ccolon) = words.next() {
                 if let Some(c) = &ccolon[0..&ccolon.len() - 1].chars().next() {
                     if let Some(pass) = words.next() {
-                        let instances =
-                            pass.chars()
-                                .fold(0, |a, ch| if c == &ch { a + 1 } else { a });
+                        let instances = pass
+                            .chars()
+                            .fold(0, |a, ch| if c == &ch { a + 1 } else { a });
 
                         if instances < lo {
                             return false;
