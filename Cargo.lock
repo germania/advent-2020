@@ -8,38 +8,37 @@ version = "0.1.0"
 name = "day1_1"
 version = "0.1.0"
 dependencies = [
- "util 0.1.0",
+ "util",
 ]
 
 [[package]]
 name = "day1_2"
 version = "0.1.0"
 dependencies = [
- "util 0.1.0",
+ "util",
 ]
 
 [[package]]
 name = "day2_1"
 version = "0.1.0"
 dependencies = [
- "util 0.1.0",
+ "util",
 ]
 
 [[package]]
 name = "day2_2"
 version = "0.1.0"
 dependencies = [
- "util 0.1.0",
+ "util",
 ]
 
 [[package]]
-name = "day3_1"
+name = "day3"
 version = "0.1.0"
 dependencies = [
- "util 0.1.0",
+ "util",
 ]
 
 [[package]]
 name = "util"
 version = "0.1.0"
-
