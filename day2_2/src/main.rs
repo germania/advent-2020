@@ -1,50 +1,38 @@
 use util::read_arg_file;
 
-fn valid(line: &str) -> bool {
-    let mut words = line.split(" ");
-    if let Some(hilo) = words.next() {
-        if let Some(idx) = hilo.find('-') {
-            let lo = hilo[0..idx].parse::<usize>().unwrap();
-            let hi = hilo[idx + 1..].parse::<usize>().unwrap();
+fn valid(line: &str) -> Option<bool> {
+    let mut words = line.split(' ');
+    let hilo: Vec<usize> = words
+        .next()
+        .unwrap()
+        .split('-')
+        .map(|x| x.parse::<usize>().unwrap())
+        .collect();
 
-            if let Some(ccolon) = words.next() {
-                if let Some(c) = &ccolon[0..&ccolon.len() - 1].chars().next() {
-                    if let Some(pass) = words.next() {
-                        let lo_c = pass.chars().nth(lo - 1).unwrap();
-                        let hi_c = pass.chars().nth(hi - 1).unwrap();
+    let lo = hilo[0];
+    let hi = hilo[1];
 
-                        if &lo_c == c && &hi_c == c {
-                            return false;
-                        }
+    let c = &words.next().unwrap().chars().next().unwrap();
 
-                        if &lo_c == c || &hi_c == c {
-                            return true;
-                        }
+    let pass: Vec<char> = words.next().unwrap().chars().collect();
 
-                        return false;
-                    }
-                }
-            }
-        }
+    let lo_c = &pass[lo - 1];
+    let hi_c = &pass[hi - 1];
+
+    if lo_c == c && hi_c == c {
+        return None;
     }
 
-    false
+    if lo_c == c || hi_c == c {
+        return Some(true);
+    }
+
+    None
 }
 
 fn main() {
-    if let Ok(lines) = read_arg_file() {
-        let ret = lines
-            .map(|x| match x {
-                Ok(x) => valid(&x),
-                _ => panic!("Empty line"),
-            })
-            .fold(0, |a, c| {
-                a + match c {
-                    true => 1,
-                    false => 0,
-                }
-            });
+    let lines = read_arg_file().unwrap();
+    let ret = lines.filter_map(|x| valid(&x.unwrap())).count();
 
-        println!("Found {} valid", ret);
-    }
+    println!("Found {} valid", ret);
 }
