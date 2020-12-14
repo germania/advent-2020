@@ -1,6 +1,6 @@
 use std::env;
 use std::fs::File;
-use std::io::{self, BufRead, Error, ErrorKind};
+use std::io::{self, BufRead};
 use std::path::Path;
 
 pub fn file_arg() -> Option<String> {
@@ -22,8 +22,5 @@ where
 }
 
 pub fn read_arg_file() -> io::Result<io::Lines<io::BufReader<File>>> {
-    match file_arg() {
-        Some(file) => read_lines(file),
-        None => Err(Error::new(ErrorKind::Other, "No file")),
-    }
+    read_lines(file_arg().unwrap())
 }
