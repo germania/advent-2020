@@ -7,11 +7,7 @@ pub fn count_trees(col: usize, row: usize) -> Result<usize, Box<dyn std::error::
     let mut y = 0;
     let mut trees = 0;
 
-    loop {
-        if y >= lines.len() {
-            break;
-        }
-
+    while y < lines.len() {
         trees += match lines[y].chars().nth(x % lines[y].len()).unwrap() {
             '#' => 1,
             _ => 0,

@@ -4,13 +4,7 @@ use std::io::{self, BufRead};
 use std::path::Path;
 
 pub fn file_arg() -> Option<String> {
-    let args: Vec<String> = env::args().collect();
-    let mut buf = String::new();
-    if let Some(arg) = args.last() {
-        buf.push_str(arg);
-        return Some(buf);
-    }
-    None
+    Some(env::args().last()?)
 }
 
 pub fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
