@@ -1,26 +1,23 @@
 use util::read_arg_file;
 
-fn seat_id(code: &str) -> u32 {
-    let mut row = 0;
-    let mut seat = 0;
+fn id(code: &str) -> u32 {
+    let mut ret = 0;
 
-    for ch in code[..7].chars() {
-        row <<= 1;
-        row |= match ch {
-            'F' => 0,
-            'B' => 1,
+    for ch in code.chars() {
+        ret <<= 1;
+        ret |= match ch {
+            'F' | 'L' => 0,
+            'B' | 'R' => 1,
             _ => panic!("wat"),
         };
     }
 
-    for ch in code[7..].chars() {
-        seat <<= 1;
-        seat |= match ch {
-            'L' => 0,
-            'R' => 1,
-            _ => panic!("wat"),
-        }
-    }
+    ret
+}
+
+fn seat_id(code: &str) -> u32 {
+    let row = id(&code[..7]);
+    let seat = id(&code[7..]);
 
     row * 8 + seat
 }
