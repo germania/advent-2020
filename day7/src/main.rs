@@ -26,7 +26,7 @@ impl Bag {
             can_contain.push((amt, my_color));
 
             let bags = words.next()?;
-            if !bags.ends_with(",") {
+            if !bags.ends_with(',') {
                 break;
             }
         }
@@ -35,7 +35,7 @@ impl Bag {
     }
 }
 
-fn check_contents(search: &str, bag: &Bag, bags: &Vec<Bag>) -> bool {
+fn check_contents(search: &str, bag: &Bag, bags: &[Bag]) -> bool {
     for child in &bag.can_contain {
         if child.1 == search {
             return true;
@@ -45,7 +45,7 @@ fn check_contents(search: &str, bag: &Bag, bags: &Vec<Bag>) -> bool {
     let child_bags: Vec<&Bag> = bag
         .can_contain
         .iter()
-        .map(|b| bags.iter().filter(|bb| bb.color == b.1).next().unwrap())
+        .map(|b| bags.iter().find(|bb| bb.color == b.1).unwrap())
         .collect();
 
     for child_bag in child_bags {
@@ -57,13 +57,13 @@ fn check_contents(search: &str, bag: &Bag, bags: &Vec<Bag>) -> bool {
     false
 }
 
-fn count_contents(bag: &Bag, bags: &Vec<Bag>) -> i32 {
+fn count_contents(bag: &Bag, bags: &[Bag]) -> i32 {
     bag.can_contain
         .iter()
         .map(|b| {
             (
                 b.0,
-                bags.iter().filter(|bb| bb.color == b.1).next().unwrap(),
+                bags.iter().find(|bb| bb.color == b.1).unwrap(),
             )
         })
         .fold(0, |a, bb| a + bb.0 * count_contents(bb.1, bags))
@@ -85,7 +85,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("Exercise 1: {} bags can contain {}", ret, search);
 
-    let mybag = &bags.iter().filter(|bb| bb.color == search).next().unwrap();
+    let mybag = &bags.iter().find(|bb| bb.color == search).unwrap();
     let total = count_contents(mybag, &bags) - 1;
 
     println!("Exercise 2: {} bags can fit in a {} bag", total, search);
